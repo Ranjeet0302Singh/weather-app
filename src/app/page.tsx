@@ -121,7 +121,7 @@ export default function Home() {
   if (error)
     return (
       <div className="flex items-center min-h-screen justify-center">
-        <p className="text-red-400">{error.message}</p>
+     
       </div>
     );
   return (
