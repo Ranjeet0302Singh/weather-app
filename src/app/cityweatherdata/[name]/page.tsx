@@ -83,7 +83,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
       let apiUrl = "";
       if (place) {
         apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${place}`;
-      } else if (params.name) {
+      } else if (params.name ) {
         
         apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${params.name}`;
       }
