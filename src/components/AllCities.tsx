@@ -1,10 +1,12 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import CityWeatherData from "../app/cityweatherdata/[name]/page";
 import Navbar from "./Navbar";
-
+import { HoverEffect } from "./ui/card-hover-effect";
+import { BackgroundBeams } from "./ui/background-beams";
+import Image from "next/image";
 interface City {
   id: number;
   name: string;
@@ -25,7 +27,9 @@ export default function Home() {
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [weatherData, setWeatherData] = useState<{ [key: string]: Weather }>({});
+  const [weatherData, setWeatherData] = useState<{ [key: string]: Weather }>(
+    {}
+  );
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -54,28 +58,6 @@ export default function Home() {
     fetchCities();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchWeatherData = async () => {
-  //     const promises = cities.map(async (city) => {
-  //       try {
-  //         const response = await axios.get(
-  //           `https://api.openweathermap.org/data/2.5/weather?q=${city.name},${city.country}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
-  //         );
-  //         const weather: Weather = {
-  //           description: response.data.weather[0].description,
-  //           temperature: response.data.main.temp,
-  //         };
-  //         setWeatherData((prevData) => ({ ...prevData, [city.name]: weather }));
-  //       } catch (error) {
-  //         console.error("Error fetching weather data for", city.name, ":", error);
-  //       }
-  //     });
-  //     await Promise.all(promises);
-  //   };
-
-  //   fetchWeatherData();
-  // }, [cities]);
-
   useEffect(() => {
     const uniqueCityNames = new Set<string>(); // Set to store unique city names
 
@@ -96,41 +78,39 @@ export default function Home() {
     setFilteredCities(filtered);
   }, [searchQuery, cities]);
 
-  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchQuery(event.target.value);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex items-center min-h-screen justify-center">
+        <p className="animate-bounce text-white">Loading...</p>
+      </div>
+    );
 
   return (
-    <div className="container">
-      <h1>Cities</h1>
-      <div>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-          placeholder="Search cities..."
-        />
-      </div>
+    <>
+      <div className="container text-zinc-500 flex flex-col      ">
+        <h1 className=" text-2xl mt-52 text-center  pb-11 font-extrabold">
+          <p>Welcome to Weather App</p>
+          <p>search your or any city and mointer weather</p>
+        </h1>
+        <div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+            placeholder="Search cities..."
+            className="rounded-3xl border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4   bg-neutral-950 placeholder:text-neutral-700  placeholder:text-center p-2"
+          />
+        </div>
+        <BackgroundBeams></BackgroundBeams>
 
-      {/* <Navbar location={CityWeatherData.name } /> */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 " >
-        {filteredCities.map((city) => (
-          <Link href={`/cityweatherdata/${encodeURIComponent(city.name)}`}  key={city.id} className="border p-4 rounded-md flex flex-col flex-wrap">
-            <h2>{city.name}</h2>
-            <p>Country: {city.country}</p>
-            <p>Population: {city.population}</p>
-            <p>Timezone: {city.timezone}</p>
-            {weatherData[city.name] && (
-              <div>
-                <p>Weather: {weatherData[city.name].description}</p>
-                <p>Temperature: {weatherData[city.name].temperature}°C</p>
-              </div>
-            )}
-          </Link>
-        ))}
+        <HoverEffect items={filteredCities} />
       </div>
-    </div>
+    </>
   );
 }
