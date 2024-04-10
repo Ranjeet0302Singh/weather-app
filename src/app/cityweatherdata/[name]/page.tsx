@@ -149,7 +149,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
                   <p className="text-lg">
                     ({format(parseISO(firstData?.dt_txt ?? ""), "dd.MM.yyyy")})
                   </p>
-                  <p>{data.city.name}</p>
+                  <p>{data?.city.name}</p>
                 </h2>
                 <Container className=" gap-10 px-6 items-center">
                   <div className=" flex flex-col px-4 ">

@@ -100,8 +100,8 @@ export default function Navbar({ location }: Props) {
               onClick={handleCurrentLocation}
               className="text-2xl  text-gray-400 hover:opacity-80 cursor-pointer"
             />
-            <MdOutlineLocationOn className="text-3xl" />
-            <p className="text-slate-900/80 text-sm"> {location} </p>
+            {/* <MdOutlineLocationOn className="text-3xl" />
+            <p className="text-slate-900/80 text-sm"> {location} </p> */}
             <div className="relative hidden md:flex">
 
               <SearchBox
