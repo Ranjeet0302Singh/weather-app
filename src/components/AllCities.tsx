@@ -115,9 +115,9 @@ export default function Home() {
       </div>
 
       {/* <Navbar location={CityWeatherData.name } /> */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 " >
         {filteredCities.map((city) => (
-          <Link href={`/cityweatherdata/${encodeURIComponent(city.name)}`}  key={city.id} className="border p-4 rounded-md">
+          <Link href={`/cityweatherdata/${encodeURIComponent(city.name)}`}  key={city.id} className="border p-4 rounded-md flex flex-col flex-wrap">
             <h2>{city.name}</h2>
             <p>Country: {city.country}</p>
             <p>Population: {city.population}</p>

@@ -84,6 +84,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
       if (place) {
         apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${place}`;
       } else if (params.name) {
+        
         apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${params.name}`;
       }
 
@@ -100,7 +101,8 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
 
   useEffect(() => {
     refetch();
-  }, [place, refetch]);
+    setPlace('')
+  }, [place, params.name, refetch]);
 
   const firstData = data?.list[0];
 
