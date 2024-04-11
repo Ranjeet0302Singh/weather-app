@@ -103,7 +103,7 @@ export default function Home() {
             type="text"
             value={searchQuery}
             onChange={handleSearchInputChange}
-            placeholder="Search cities..."
+            placeholder="Search Country..."
             className="rounded-3xl border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4   bg-neutral-950 placeholder:text-neutral-700  placeholder:text-center p-2"
           />
         </div>

@@ -12,12 +12,10 @@ import { convertWindSpeed } from "@/utils/convertWindSpeed";
 import { metersToKilometers } from "@/utils/metersToKilometers";
 import axios from "axios";
 import { format, fromUnixTime, parseISO } from "date-fns";
-import Image from "next/image";
 import { useQuery } from "react-query";
 import { loadingCityAtom, placeAtom } from "../../atom";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 interface WeatherDetail {
   dt: number;
@@ -73,6 +71,31 @@ interface WeatherData {
     sunset: number;
   };
 }
+
+function getBackgroundColor(description:any) {
+  switch (description.toLowerCase()) {
+    case "clear sky":
+      return "linear-gradient(to bottom, #7bb4f5, #ffffff)";
+    case "few clouds":
+    case "scattered clouds":
+    case "broken clouds":
+    case "overcast clouds":
+      return "linear-gradient(to bottom, #cfcfcf, #ffffff)"; 
+    case "shower rain":
+    case "rain":
+    case "light rain":
+      return "linear-gradient(to bottom, #4b5563, #ffffff)"; 
+    case "thunderstorm":
+      return "linear-gradient(to bottom, #805ad5, #ffffff)";
+    case "snow":
+    case "light snow":
+      return "linear-gradient(to bottom, #ffffff, #d3d3d3)";
+    default:
+      return "#fff";
+  }
+}
+
+
 const CityWeatherData = ({ params }: { params: { name: string } }) => {
   const [place, setPlace] = useAtom(placeAtom);
   const [loadingCity] = useAtom(loadingCityAtom);
@@ -104,6 +127,9 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
   }, [place, params.name, refetch]);
 
   const firstData = data?.list[0];
+  const backgroundColor = firstData
+    ? getBackgroundColor(firstData.weather[0].description)
+    : "#ffffff";
 
   // console.log("error", error);
 
@@ -136,7 +162,10 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
       <div className="flex items-center min-h-screen justify-center"></div>
     );
   return (
-    <div className="flex flex-col gap-4  min-h-screen ">
+    <div
+      style={{background: backgroundColor }}
+      className="flex flex-col gap-4 min-h-screen"
+    >
       <Navbar location={params.name} />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9  w-full  pb-10 pt-4 ">
         {loadingCity ? (
@@ -145,7 +174,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
           <>
             <section className="space-y-4 ">
               <div className="space-y-2">
-                <div className=" text-white flex  items-center justify-center gap-5   ">
+                <div className="  text-zinc-800 flex  items-center justify-center gap-5   ">
                   <div className=" flex flex-col items-center mt-5">
                     <div>
                       <span className="text-5xl">
@@ -153,7 +182,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
                         °
                       </span>
                     </div>
-                    <div >
+                    <div>
                       <p className="text-xs space-x-1 whitespace-nowrap">
                         <span> Feels like</span>
                         <span>
@@ -187,17 +216,19 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
                     </p>
                   </Container>
                 </div>
-                <h2 className="flex gap-1 text-2xl  items-center text-white flex-col">
+                <h2 className="flex gap-1 text-2xl  items-center text-zinc-800  flex-col">
                   <p>{data?.city.name}</p>
                   <div>
-
-                  <span> {format(parseISO(firstData?.dt_txt ?? ""), "EEEE")}/</span>
-                  <span className="text-lg">
-                    {format(parseISO(firstData?.dt_txt ?? ""), "dd.MM.yyyy")}
-                  </span>
+                    <span>
+                      {" "}
+                      {format(parseISO(firstData?.dt_txt ?? ""), "EEEE")}/
+                    </span>
+                    <span className="text-lg">
+                      {format(parseISO(firstData?.dt_txt ?? ""), "dd.MM.yyyy")}
+                    </span>
                   </div>
                 </h2>
-                <Container className=" gap-10 px-6 items-center">
+                <Container className=" gap-10 px-6 items-center ">
                   <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
                     {data?.list.map((d, i) => (
                       <div
