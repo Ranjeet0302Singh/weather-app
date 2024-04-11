@@ -87,7 +87,7 @@ export default function Navbar({ location }: Props) {
   }
   return (
     <>
-      <nav className="shadow-sm  sticky top-0 left-0 z-50 bg-white">
+      <nav className="shadow-sm  sticky top-0 left-0 z-50 bg-gray-900">
         <div className="h-[80px]     w-full    flex   justify-between items-center  max-w-7xl px-3 mx-auto">
           <p className="flex items-center justify-center gap-2  ">
             <h2 className="text-gray-500 text-3xl">Weather</h2>
@@ -108,6 +108,7 @@ export default function Navbar({ location }: Props) {
                 value={city}
                 onSubmit={handleSubmiSearch}
                 onChange={(e) => handleInputChang(e.target.value)}
+                
               />
               <SuggetionBox
                 {...{
@@ -121,7 +122,7 @@ export default function Navbar({ location }: Props) {
           </section>
         </div>
       </nav>
-      <section className="flex   max-w-7xl px-3 md:hidden ">
+      <section className="flex   max-w-7xl px-3 md:hidden m-auto ">
         <div className="relative ">
 
           <SearchBox

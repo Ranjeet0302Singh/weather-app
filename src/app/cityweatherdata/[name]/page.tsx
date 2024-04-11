@@ -83,8 +83,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
       let apiUrl = "";
       if (place) {
         apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${place}`;
-      } else if (params.name ) {
-        
+      } else if (params.name) {
         apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${params.name}`;
       }
 
@@ -101,7 +100,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
 
   useEffect(() => {
     refetch();
-    setPlace('')
+    setPlace("");
   }, [place, params.name, refetch]);
 
   const firstData = data?.list[0];
@@ -128,7 +127,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
 
   if (isLoading)
     return (
-      <div className="flex items-center min-h-screen justify-center">
+      <div className="flex items-center min-h-screen justify-center text-white">
         <p className="animate-bounce">Loading...</p>
       </div>
     );
@@ -137,7 +136,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
       <div className="flex items-center min-h-screen justify-center"></div>
     );
   return (
-    <div className="flex flex-col gap-4 bg-gray-100 min-h-screen ">
+    <div className="flex flex-col gap-4  min-h-screen ">
       <Navbar location={params.name} />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9  w-full  pb-10 pt-4 ">
         {loadingCity ? (
@@ -146,39 +145,59 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
           <>
             <section className="space-y-4 ">
               <div className="space-y-2">
-                <h2 className="flex gap-1 text-2xl  items-end ">
-                  <p>{format(parseISO(firstData?.dt_txt ?? ""), "EEEE")}</p>
-                  <p className="text-lg">
-                    ({format(parseISO(firstData?.dt_txt ?? ""), "dd.MM.yyyy")})
-                  </p>
-                  <p>{data?.city.name}</p>
-                </h2>
-                <Container className=" gap-10 px-6 items-center">
-                  <div className=" flex flex-col px-4 ">
-                    <span className="text-5xl">
-                      {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}°
-                    </span>
-                    <p className="text-xs space-x-1 whitespace-nowrap">
-                      <span> Feels like</span>
-                      <span>
-                        {convertKelvinToCelsius(
-                          firstData?.main.feels_like ?? 0
-                        )}
+                <div className=" text-white flex  items-center justify-center gap-5   ">
+                  <div className=" flex flex-col items-center mt-5">
+                    <div>
+                      <span className="text-5xl">
+                        {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}
                         °
                       </span>
-                    </p>
-                    <p className="text-xs space-x-2">
-                      <span>
-                        {convertKelvinToCelsius(firstData?.main.temp_min ?? 0)}
-                        °↓{" "}
-                      </span>
-                      <span>
-                        {" "}
-                        {convertKelvinToCelsius(firstData?.main.temp_max ?? 0)}
-                        °↑
-                      </span>
-                    </p>
+                    </div>
+                    <div >
+                      <p className="text-xs space-x-1 whitespace-nowrap">
+                        <span> Feels like</span>
+                        <span>
+                          {convertKelvinToCelsius(
+                            firstData?.main.feels_like ?? 0
+                          )}
+                          °
+                        </span>
+                      </p>
+                      <p className="text-xs space-x-2">
+                        <span>
+                          {convertKelvinToCelsius(
+                            firstData?.main.temp_min ?? 0
+                          )}
+                          °↓{" "}
+                        </span>
+                        <span>
+                          {" "}
+                          {convertKelvinToCelsius(
+                            firstData?.main.temp_max ?? 0
+                          )}
+                          °↑
+                        </span>
+                      </p>
+                    </div>
                   </div>
+                  <Container className="w-fit  justify-center flex-col px-4 items-center bg-transparent border-none">
+                    <WeatherIcon iconName={firstData?.weather[0].icon ?? ""} />
+                    <p className=" capitalize text-center">
+                      {firstData?.weather[0].description}{" "}
+                    </p>
+                  </Container>
+                </div>
+                <h2 className="flex gap-1 text-2xl  items-center text-white flex-col">
+                  <p>{data?.city.name}</p>
+                  <div>
+
+                  <span> {format(parseISO(firstData?.dt_txt ?? ""), "EEEE")}/</span>
+                  <span className="text-lg">
+                    {format(parseISO(firstData?.dt_txt ?? ""), "dd.MM.yyyy")}
+                  </span>
+                  </div>
+                </h2>
+                <Container className=" gap-10 px-6 items-center">
                   <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
                     {data?.list.map((d, i) => (
                       <div
@@ -198,12 +217,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
               </div>
               <div className=" flex gap-4">
                 {/* left  */}
-                <Container className="w-fit  justify-center flex-col px-4 items-center ">
-                  <p className=" capitalize text-center">
-                    {firstData?.weather[0].description}{" "}
-                  </p>
-                  <WeatherIcon iconName={firstData?.weather[0].icon ?? ""} />
-                </Container>
+
                 <Container className="bg-yellow-300/80  px-6 gap-4 justify-between overflow-x-auto">
                   <WeatherDetails
                     visability={metersToKilometers(
@@ -211,9 +225,14 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
                     )}
                     airPressure={`${firstData?.main.pressure} hPa`}
                     humidity={`${firstData?.main.humidity}%`}
-                    sunrise={format(data?.city.sunrise ?? 1702949452, "H:mm")}
-                    // sunrise={}
-                    sunset={format(data?.city.sunset ?? 1702517657, "H:mm")}
+                    sunrise={format(
+                      fromUnixTime(data?.city.sunrise ?? 1702517657),
+                      "H:mm"
+                    )}
+                    sunset={format(
+                      fromUnixTime(data?.city.sunset ?? 1702517657),
+                      "H:mm"
+                    )}
                     windSpeed={convertWindSpeed(firstData?.wind.speed ?? 1.64)}
                   />
                 </Container>

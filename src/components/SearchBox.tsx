@@ -14,8 +14,9 @@ const SearchBox = (props : Props) => {
     <form
       onSubmit={props.onSubmit}
       className={cn(
-        "flex relative items-center justify-center h-10",
+        "flex relative items-center justify-center h-10 text-neutral-400 ",
         props.className
+        
       )}
     >
       <input
@@ -23,9 +24,9 @@ const SearchBox = (props : Props) => {
         value={props.value}
         onChange={props.onChange}
         placeholder="Search location.."
-        className="px-4 py-2 w-[230px] border border-gray-300 rounded-l-md focus:outline-none  focus:border-blue-500 h-full"
+        className="rounded-3xl border border-neutral-800 focus:ring-1 focus:ring-teal-500  w-full relative z-10   bg-neutral-950 placeholder:text-neutral-400  placeholder:text-center p-2 rounded-r-none"
       />
-      <button className="px-4 py-[9px] bg-blue-500 text-white rounded-r-md focus:outline-none hover:bg-blue-600  h-full">
+      <button className="px-4 py-[9px] border  border-blue-500 bg-blue-500 text-white  focus:outline-none hover:bg-blue-600  h-full rounded-3xl rounded-l-none">
         <IoSearch />
       </button>
     </form>

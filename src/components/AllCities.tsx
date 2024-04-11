@@ -95,8 +95,8 @@ export default function Home() {
     <>
       <div className="container text-zinc-500 flex flex-col      ">
         <h1 className=" text-2xl mt-52 text-center  pb-11 font-extrabold">
-          <p>Welcome to Weather App</p>
-          <p>search your or any city and mointer weather</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </p>
         </h1>
         <div>
           <input
