@@ -228,12 +228,12 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
                     </span>
                   </div>
                 </h2>
-                <Container className=" gap-10 px-6 items-center ">
-                  <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+                <Container className=" gap-10 px-6 items-center  bg-slate-300">
+                  <div className="flex gap-10 sm:gap-16  overflow-x-scroll w-full justify-between pr-3">
                     {data?.list.map((d, i) => (
                       <div
                         key={i}
-                        className="flex flex-col justify-between gap-2 items-center text-xs font-semibold "
+                        className="flex flex-col justify-between gap-2 items-center text-xs font-semibold  "
                       >
                         <p className="whitespace-nowrap">
                           {format(parseISO(d.dt_txt), "h:mm a")}
