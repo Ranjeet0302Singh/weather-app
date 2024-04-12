@@ -53,7 +53,7 @@ Ensure you have Node.js and npm installed on your machine.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/weather-app.git
+git clone https://github.com/Ranjeet0302Singh/weather-app.git
 ```
 ## Getting Started
 
@@ -103,13 +103,15 @@ To configure the app, set the following environment variable:
 Create a `.env.local` file in the root directory and add your API key:
 
 ```plaintext
-API_KEY=your_openweather_api_key_here
+NEXT_PUBLIC_WEATHER_KEY=your_openweather_api_key_here
 ```
 
 ## Data Sources
 
 - **Country Data**: MyWeatherApp fetches country data from the OpenDataSoft API, providing information about various countries.
+  **API** :https://www.google.com/url?q=https://public.opendatasoft.com/explore/dataset/geonames-all-cities-with-a-population-1000/table/?disjunctive.cou_name_en%26sort%3Dname&sa=D&source=editors&ust=1712937433305377&usg=AOvVaw3HYNb0yk4_GNnbTcjko9Jo
 - **Weather Data**: Weather details are obtained from the OpenWeather API, offering real-time weather forecasts for locations worldwide.
+  **API** : https://api.openweathermap.org/data/2.5/weather?q=London&APPID=NEXT_PUBLIC_WEATHER_KEY
 
 ## Acknowledgments
 
