@@ -59,17 +59,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const uniqueCityNames = new Set<string>(); // Set to store unique city names
-
-    // Filter cities based on search query and remove duplicates
+    const uniqueCityNames = new Set<string>(); 
     const filtered = cities.filter((city) => {
-      // Check if city name exists and is not already added to the set
       if (
         city.name &&
         !uniqueCityNames.has(city.name.toLowerCase()) &&
         city.name.toLowerCase().includes(searchQuery.toLowerCase())
       ) {
-        uniqueCityNames.add(city.name.toLowerCase()); // Add city name to the set
+        uniqueCityNames.add(city.name.toLowerCase()); 
         return true;
       }
       return false;

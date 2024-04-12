@@ -116,7 +116,6 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
         return data;
       }
 
-      // If neither place nor name is available, return an empty object
       return {};
     }
   );
@@ -250,7 +249,6 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
                 </Container>
               </div>
               <div className=" flex gap-4">
-                {/* left  */}
 
                 <Container className="bg-yellow-300/80  px-6 gap-4 justify-between overflow-x-auto">
                   <WeatherDetails
