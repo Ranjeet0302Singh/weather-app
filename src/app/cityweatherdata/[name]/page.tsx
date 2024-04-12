@@ -159,7 +159,10 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
     );
   if (error)
     return (
-      <div className="flex items-center min-h-screen justify-center"></div>
+      <div className="flex items-center min-h-screen justify-center">
+        <p>Error fetching data</p>
+        <p> No City found</p>
+      </div>
     );
   return (
     <div
@@ -271,7 +274,7 @@ const CityWeatherData = ({ params }: { params: { name: string } }) => {
             </section>
 
             <section className="flex w-full flex-col gap-4  ">
-              <p className="text-2xl">Forcast (7 days)</p>
+              <p className="text-2xl">Upcoming Days Forcast </p>
               {firstDataForEachDate.map((d, i) => (
                 <ForecastWeatherDetail
                   key={i}
